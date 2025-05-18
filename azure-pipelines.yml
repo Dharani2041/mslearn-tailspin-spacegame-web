@@ -4,14 +4,21 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
--main
+  - main
 
-pool: 
- name: MyAgentPool
+pool:
+  name: Default
 
 variables:
- buildConfiguration: 'Release'
+  buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.x'  # Change this to your required .NET SDK version
+
 - script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Build the project'
+
   
